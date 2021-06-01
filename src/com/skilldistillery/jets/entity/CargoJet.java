@@ -1,6 +1,7 @@
 package com.skilldistillery.jets.entity;
 
 public class CargoJet extends Jet implements Loadable {
+	private int maxLoad;
 
 	public CargoJet(String model, double speed, int range, long price) {
 		super(model, speed, range, price);

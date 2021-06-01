@@ -83,6 +83,8 @@ public class JetsApplication {
 	private void mainMenu() {
 		boolean continueApp = true;
 		
+		System.out.println("\\\\\\\\\\\\\\\\\\\\ Welcome to Jet Fleet Sim //////////\n"
+				+ "\n");
 		while (continueApp) {
 			int userChoice = getMenuChoice();
 			
@@ -138,14 +140,9 @@ public class JetsApplication {
 		}
 	}
 	
-//	private Jet iterateThruFleet(List<Jet> fleet) {
-//		Jet jet;
-//		
-//		return jet;
-//	}
-	
 	private int getMenuChoice() {
-		System.out.println("Press 1 to LIST all jets in the fleet: \n"
+		System.out.println(
+				  "Press 1 to LIST all jets in the fleet: \n"
 				+ "Press 2 to FLY all jets in the fleet: \n"
 				+ "Press 3 to see the FASTEST jet: \n"
 				+ "Press 4 to see the jet that can fly the FARTHEST: \n"
@@ -183,7 +180,9 @@ public class JetsApplication {
 				fastest = jet;
 			}
 		}
-		System.out.println("The fastest jet in your fleet is the " + fastest.getModel());
+		System.out.println("The fastest jet in your fleet is the " + fastest.getModel() +"\n"
+			+ "Its max speed is " + fastest.getSpeed() + " MPH!"
+				);
 	}
 	
 	// Choice 4 method
@@ -195,7 +194,9 @@ public class JetsApplication {
 				farthest = jet;
 			}
 		}
-		System.out.println("The jet that can fly the furthest is the " + farthest.getModel());
+		System.out.printf("The jet that can fly the furthest is the " + farthest.getModel() + "\n"
+		+ "It can fly for up to %.2f", farthest.getFlightTime());
+		System.out.println(" hours!");
 		// same as above but for longest range
 	}
 	// Choice 5 method
@@ -300,7 +301,7 @@ public class JetsApplication {
 				counter++;
 			}
 			toRemove = (input.nextInt() - 1);
-			System.err.println("Please confirm you would like to permanently remove "
+			System.err.println("Please confirm you would like to permanently remove: \n"
 					+ airfield.getJetAtPosition(toRemove) + "!!!");
 			String in = input.next();
 			if (in.contains("y") || in.contains("Y")) {

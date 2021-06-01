@@ -65,12 +65,12 @@ public abstract class Jet {
 
 
 	public void fly() {
-		System.out.println("*** A " + model 
+		System.out.printf("*** A " + model 
 				+ " departing runway 19 for cross-country flight.\n"
-				+ "Estimated duration will be: " + getFlightTime()
-				+ "------------------------------------------------->"
+				+ "Estimated duration will be: %.2f", getFlightTime()
 				);
-	}
+				System.out.println(" hours. ------------------------------------------------->");
+			}
 	
 	public double getFlightTime() {
 		return (double)(range/speed);
