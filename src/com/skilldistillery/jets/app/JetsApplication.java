@@ -18,7 +18,7 @@ import com.skilldistillery.jets.entity.PassengerJet;
 public class JetsApplication {
 
 	private Airfield airfield = new Airfield();
-	private Scanner input = new Scanner(System.in); 
+	private Scanner input = new Scanner(System.in);
 
 	public JetsApplication() {
 	}
@@ -26,7 +26,7 @@ public class JetsApplication {
 	public static void main(String[] args) {
 		String fileName = "jets.csv";
 		List<Jet> jetFleet;
-		
+
 		JetsApplication jetTycoonSim = new JetsApplication();
 
 		jetFleet = jetTycoonSim.takeOff(fileName);
@@ -78,16 +78,15 @@ public class JetsApplication {
 	private void addFleetToAirField(List<Jet> newFleet) {
 		airfield.setFleet(newFleet);
 	}
-	
+
 	// User interface
 	private void mainMenu() {
 		boolean continueApp = true;
-		
-		System.out.println("\\\\\\\\\\\\\\\\\\\\ Welcome to Jet Fleet Sim //////////\n"
-				+ "\n");
+
+		System.out.println("\\\\\\\\\\\\\\\\\\\\ Welcome to Jet Fleet Sim //////////\n" + "\n");
 		while (continueApp) {
 			int userChoice = getMenuChoice();
-			
+
 			switch (userChoice) {
 			case 1:
 				displayFullFleet();
@@ -139,29 +138,22 @@ public class JetsApplication {
 			}
 		}
 	}
-	
+
 	private int getMenuChoice() {
-		System.out.println(
-				  "Press 1 to LIST all jets in the fleet: \n"
-				+ "Press 2 to FLY all jets in the fleet: \n"
-				+ "Press 3 to see the FASTEST jet: \n"
-				+ "Press 4 to see the jet that can fly the FARTHEST: \n"
-				+ "Press 5 to LOAD passenger and cargo jets: \n"
-				+ "Press 6 to ALERT military jets: \n"
-				+ "Press 7 to ADD a jet to the fleet: \n"
-				+ "Press 8 to REMOVE a jet from the fleet: \n"
-				+ "Press 9 to QUIT: \n"
-				+ "\n"
-				);
+		System.out.println("Press 1 to LIST all jets in the fleet: \n" + "Press 2 to FLY all jets in the fleet: \n"
+				+ "Press 3 to see the FASTEST jet: \n" + "Press 4 to see the jet that can fly the FARTHEST: \n"
+				+ "Press 5 to LOAD passenger and cargo jets: \n" + "Press 6 to ALERT military jets: \n"
+				+ "Press 7 to ADD a jet to the fleet: \n" + "Press 8 to REMOVE a jet from the fleet: \n"
+				+ "Press 9 to QUIT: \n" + "\n");
 		return input.nextInt();
 	}
-	
+
 	// Choice 1 method
 	private void displayFullFleet() {
 		System.out.println(airfield.toString());
-		
+
 	}
-	
+
 	// Choice 2 method
 	private void flyFleet() {
 		System.out.println("Flying all jets in fleet!");
@@ -170,54 +162,57 @@ public class JetsApplication {
 			jet.fly();
 		}
 	}
-	
+
 	// Choice 3 method
 	private void displayFastestJet() {
 		Jet fastest = airfield.getJetAtPosition(0);
-		// do a foreach search with a fastestJetFound local var, print out 
+		// do a foreach search with a fastestJetFound local var, print out
 		for (Jet jet : airfield.getFleet()) {
 			if (jet.getSpeed() > fastest.getSpeed()) {
 				fastest = jet;
 			}
 		}
-		System.out.println("The fastest jet in your fleet is the " + fastest.getModel() +"\n"
-			+ "Its max speed is " + fastest.getSpeed() + " MPH!"
-				);
+		System.out.println("The fastest jet in your fleet is the " + fastest.getModel() + "\n" + "Its max speed is "
+				+ fastest.getSpeed() + " MPH!");
 	}
-	
+
 	// Choice 4 method
 	private void displayFarthestJet() {
 		Jet farthest = airfield.getJetAtPosition(0);
-		
+
 		for (Jet jet : airfield.getFleet()) {
 			if (jet.getRange() > farthest.getRange()) {
 				farthest = jet;
 			}
 		}
-		System.out.printf("The jet that can fly the furthest is the " + farthest.getModel() + "\n"
-		+ "It can fly for up to %.2f", farthest.getFlightTime());
+		System.out.printf(
+				"The jet that can fly the furthest is the " + farthest.getModel() + "\n" + "It can fly for up to %.2f",
+				farthest.getFlightTime());
 		System.out.println(" hours!");
 		// same as above but for longest range
 	}
+
 	// Choice 5 method
 	private void loadJets() {
 		System.out.println("Loading the following jets: ");
 		for (Jet jet : airfield.getFleet()) {
 			if (jet instanceof Loadable) {
-				((Loadable)jet).putOnboard(); // cast to interface type
+				((Loadable) jet).putOnboard(); // cast to interface type
 			}
 		}
 	}
+
 	// Choice 6 method
 	private void alertJets() {
 		System.out.println("The following jets are now on alert: ");
 		// same as above but for MilitaryJet class objects
 		for (Jet jet : airfield.getFleet()) {
 			if (jet instanceof Alertable) {
-				((Alertable)jet).scramble(); // cast to interface type
+				((Alertable) jet).scramble(); // cast to interface type
 			}
 		}
 	}
+
 	// Choice 7 method
 	private void addJet() {
 		int choice;
@@ -226,64 +221,57 @@ public class JetsApplication {
 		int range;
 		long price;
 		boolean continueToAddJets = true;
-		
+
 		while (continueToAddJets) {
-		
-		System.out.println("What type of jet would you like to add?\n"
-				+ "---------------------------------------------\n"
-				+ "1) Passenger\n"
-				+ "2) Cargo\n"
-				+ "3) Military\n"
-				);
-		choice = input.nextInt();
-		if (choice < 1 || choice > 3) {
-			System.out.println("ERROR: Invalid choice.\n"
-					+ "Please select a number from 1-3\n"
-					);
-			break;
-		}
-		System.out.println("What is the model designation?");
-		model = input.next();
-		System.out.println("What is the top speed?");
-		speed = input.nextDouble();
-		System.out.println("What is the range?");
-		range = input.nextInt();
-		System.out.println("What is the price?");
-		price = input.nextLong();
 
-		
-		switch (choice) {
-		case 1:
-			Jet newPaxJet = new PassengerJet(model, speed, range, price);
-			airfield.addJetToFleet(newPaxJet);
-			System.out.println("New " + model + " successfully added to your fleet!");
-			break;
-		case 2:
-			Jet newCargoJet = new CargoJet(model, speed, range, price);
-			airfield.addJetToFleet(newCargoJet);
-			System.out.println("New " + model + " successfully added to your fleet!");
-			break;
-		case 3:
-			Jet newMilJet = new MilitaryJet(model, speed, range, price);
-			airfield.addJetToFleet(newMilJet);
-			System.out.println("New " + model + " successfully added to your fleet!");
-			break;
+			System.out.println(
+					"What type of jet would you like to add?\n" + "---------------------------------------------\n"
+							+ "1) Passenger\n" + "2) Cargo\n" + "3) Military\n");
+			choice = input.nextInt();
+			if (choice < 1 || choice > 3) {
+				System.out.println("ERROR: Invalid choice.\n" + "Please select a number from 1-3\n");
+				break;
+			}
+			System.out.println("What is the model designation?");
+			model = input.next();
+			System.out.println("What is the top speed?");
+			speed = input.nextDouble();
+			System.out.println("What is the range?");
+			range = input.nextInt();
+			System.out.println("What is the price?");
+			price = input.nextLong();
 
-		default:
-			System.out.println("ERROR: Invalid choice.\n"
-					+ "Please select a number from 1-3\n"
-					);
-			break;
-		}
-		System.out.println("Would you like to add another jet to the fleet?");
-		String in = input.next();
-		if (in.contains("y") || in.contains("Y")) {
-			continue;
-		} else {
-			continueToAddJets = false;
-		}
+			switch (choice) {
+			case 1:
+				Jet newPaxJet = new PassengerJet(model, speed, range, price);
+				airfield.addJetToFleet(newPaxJet);
+				System.out.println("New " + model + " successfully added to your fleet!");
+				break;
+			case 2:
+				Jet newCargoJet = new CargoJet(model, speed, range, price);
+				airfield.addJetToFleet(newCargoJet);
+				System.out.println("New " + model + " successfully added to your fleet!");
+				break;
+			case 3:
+				Jet newMilJet = new MilitaryJet(model, speed, range, price);
+				airfield.addJetToFleet(newMilJet);
+				System.out.println("New " + model + " successfully added to your fleet!");
+				break;
+
+			default:
+				System.out.println("ERROR: Invalid choice.\n" + "Please select a number from 1-3\n");
+				break;
+			}
+			System.out.println("Would you like to add another jet to the fleet?");
+			String in = input.next();
+			if (in.contains("y") || in.contains("Y")) {
+				continue;
+			} else {
+				continueToAddJets = false;
+			}
 		}
 	}
+
 	// Choice 8 method
 	private void removeJet() {
 		boolean continueRemovingJets = true;
@@ -306,8 +294,8 @@ public class JetsApplication {
 			String in = input.next();
 			if (in.contains("y") || in.contains("Y")) {
 				// call remove on airfield
-				System.out.println("Removing " + airfield.getJetAtPosition(toRemove).getModel() 
-									+ " from the fleet...\n");
+				System.out
+						.println("Removing " + airfield.getJetAtPosition(toRemove).getModel() + " from the fleet...\n");
 				airfield.removeJetFromFleet(toRemove);
 				System.out.println("Jet succesfully removed. Would you like to remove another?");
 				in = input.next();
@@ -322,80 +310,17 @@ public class JetsApplication {
 			}
 		}
 	}
+
 	// Choice 9 method
 	private void displayOutroMsg() {
-		System.out.println("Thank you for using JetFleet Manager 2000!\n"
-				+ "\n"
-				+ "Produced by the makers of the famous FoodTruck App\n"
-				+ "MickCorp ©2000 All Rights Reserved"
-				);
+		System.out.println("Thank you for using JetFleet Manager 2000!\n" + "\n"
+				+ "Produced by the makers of the famous FoodTruck App\n" + "MickCorp ©2000 All Rights Reserved");
 	}
-	
+
 	private void displayErrorMsg() {
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"
-				+ "           ERROR - INVALID INPUT\n"
-				+ "      Please choose a number from 1-9\n"
-				+ "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-				);
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n" + "           ERROR - INVALID INPUT\n"
+				+ "      Please choose a number from 1-9\n" + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		System.out.println();
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -17,3 +17,4 @@ The power of inheritance is starting to become more obvious now, I see that it m
 1) Work on stretch goals
 2) Create more airfields and fly jets from one to the other, updating their respective fleets accordingly
 3) Use the logic to build a more visually interesting sim  
+4) Move methods from app into airfield where possible to help with encapsulation
